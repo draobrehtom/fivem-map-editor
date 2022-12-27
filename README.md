@@ -14,9 +14,10 @@
 
 Before starting to installation, make sure you joined our Discord to get all others required resources. Once your download our editor, you will receive the following assets:
 
-editor2
-fxmaploader
-To run our editor resource, you need of course a FiveM server and MongoDB installation on your host. MongoDB is used to store players, sessions and maps.
+- editor2
+- fxmaploader
+
+To run editor, you need of course a FiveM server and MongoDB installation on your host. MongoDB is used to store players, sessions and maps.
 Locate editor2 and fxmaploader to your /resources/[editor] folder.
 
 
@@ -24,12 +25,12 @@ Locate editor2 and fxmaploader to your /resources/[editor] folder.
 
 See [here](https://www.mongodb.com/languages/javascript/mongodb-and-npm-tutorial). (You need to follow only the instructions until Add MongoDB as a Dependency.) Once you are done with the installation of MongoDB, make sure to create these 3 collections under the database called editor2:
 
-players
-sessions
-maps
+• players
+• sessions
+• maps
 
 
-How to configure your FiveM server to connect it with your MongoDB installation?
+# How to configure your FiveM server to connect it with your MongoDB installation?
 
 We recommend using a fresh and stable build of FiveM. (We also recommend using the cfx-default template without any additional resources.)
 
