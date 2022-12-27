@@ -1,5 +1,14 @@
 # fivem-map-editor
  Unofficial FiveM Map Editor from FOXX Creations.
+ 
+ # Discord
+ https://discord.com/invite/WxBZUHgbUX
+ 
+ # YouTube
+ https://www.youtube.com/@foxxgg
+ 
+ # Support Us
+ https://www.buymeacoffee.com/foxx
 
 # Editor Installation
 
