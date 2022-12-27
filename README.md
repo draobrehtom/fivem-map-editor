@@ -12,7 +12,7 @@
 
 # Editor Installation
 
-Before starting to installation, make sure you joined our Discord to get all others required resources. Once your purchase our editor, you will receive the following assets:
+Before starting to installation, make sure you joined our Discord to get all others required resources. Once your download our editor, you will receive the following assets:
 
 editor2
 fxmaploader
