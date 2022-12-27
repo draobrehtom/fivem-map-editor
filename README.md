@@ -13,7 +13,7 @@ Locate editor2 and fxmaploader to your /resources/[editor] folder.
 
 # How to install MongoDB?
 
-See here. (You need to follow only the instructions until Add MongoDB as a Dependency.) Once you are done with the installation of MongoDB, make sure to create these 3 collections under the database called editor2:
+See [here](https://www.mongodb.com/languages/javascript/mongodb-and-npm-tutorial). (You need to follow only the instructions until Add MongoDB as a Dependency.) Once you are done with the installation of MongoDB, make sure to create these 3 collections under the database called editor2:
 
 players
 sessions
@@ -22,7 +22,7 @@ maps
 
 How to configure your FiveM server to connect it with your MongoDB installation?
 
-We recommend using a fresh and stable build of FiveM. See here. (We also recommend using the cfx-default template without any additional resources.)
+We recommend using a fresh and stable build of FiveM. (We also recommend using the cfx-default template without any additional resources.)
 
 Once you are ready, make sure your FiveM server is not running.  It is a simple and open source MongoDB wrapper for FiveM. It's running on top of MongoDB Node Driver.
 
