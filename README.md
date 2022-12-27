@@ -2,7 +2,7 @@
  Unofficial FiveM Map Editor from FOXX Creations.
  
  # Discord
- https://discord.com/invite/WxBZUHgbUX
+ https://discord.gg/KkgB6YchkJ
  
  # YouTube
  https://www.youtube.com/@foxxgg
