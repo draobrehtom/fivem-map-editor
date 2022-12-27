@@ -1,0 +1,713 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- META -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>FOXX Map Editor @ store.foxx.gg</title>
+
+    <!-- Links -->
+    <link rel="stylesheet" href="css/index.css">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700;900&display=swap"
+        rel="stylesheet">
+
+    <!-- FontAwesome-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Scripts -->
+    <script src="nui://game/ui/jquery.js" type="text/javascript"></script>
+
+    <script src="./js/notification.js" type="text/javascript"></script>
+    <script src="./js/utils.js" type="text/javascript"></script>
+    <script src="./js/main.js" type="text/javascript"></script>
+    <script src="./js/editor.js" type="text/javascript"></script>
+
+    <script src="./js/form/formSessionBrowser.js" type="text/javascript"></script>
+    <script src="./js/form/formSessionCreate.js" type="text/javascript"></script>
+    <script src="./js/form/formSessionEdit.js" type="text/javascript"></script>
+
+    <script src="./js/form/formCreateEntity.js" type="text/javascript"></script>
+    <script src="./js/form/formCreateEntity_preview.js" type="text/javascript"></script>
+
+    <script src="./js/form/formCurrentSession.js" type="text/javascript"></script>
+    <script src="./js/form/formCurrentSessionWhitelist.js" type="text/javascript"></script>
+    <script src="./js/form/formCurrentSessionLibrary.js" type="text/javascript"></script>
+    <script src="./js/form/formCurrentSessionEnvironment.js" type="text/javascript"></script>
+
+    <script src="./js/form/formEntityProperties.js" type="text/javascript"></script>
+</head>
+
+<body>
+    <!-- Overlay -->
+    <div id="overlay">
+        <ul class="circles">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+    <!-- End of Overlay -->
+
+    <!-- Notifications -->
+    <div id="notifications"></div>
+    <!-- End of Notifications -->
+    <label id="test"></label>
+    <!-- Navbar -->
+    <div id="navbar">
+        <span class="control stretch" form-id="form_session_browser">
+            <i class="fa fa-globe"></i>Browse Sessions
+        </span>
+        <span class="control stretch" form-id="form_create_entity">
+            <i class="fa fa-plus"></i>Create
+        </span>
+        <span class="control stretch" form-id="form_current_session">
+            <i class="fa fa-circle"></i>Session
+        </span>
+    </div>
+    <!-- End of navbar -->
+
+    <!-- Content -->
+    <div id="flex_container">
+        <!-- Session browser -->
+        <div id="form_session_browser" class="editor_form stretch">
+            <div class="flex_row stretch scroll_content">
+                <div class="flex_col stretch">
+
+                    <!-- Title -->
+                    <div class="content primary" style="flex-direction: column;">
+                        <h1 id="form_session_browser_title"></h1>
+                        <p>Displaying sessions that are visible to you. You can join one or create your own.</p>
+                    </div>
+
+                    <!-- Session list -->
+                    <div id="form_session_browser_list_sessions" class="grid"></div>
+
+                    <!-- Create & leave buttons -->
+                    <div class="flex_row stretch">
+                        <a class="button blue" onclick="nui.aform.make('form_session_create')">New Session</a>
+                        <a id="form_session_browser_button_session_leave" style="display: none;" class="button red"
+                            onclick="formSessionBrowser.session.leave()">Leave Session</a>
+                    </div>
+                </div>
+
+                <!-- Selected session -->
+                <div id="form_session_browser_selected_session" class="widget flex_col"
+                    style="width: 40%; display: none;">
+                    <div class="content flex_col">
+                        <div class="flex_row center_items">
+                            <h2 id="form_session_browser_selected_session_title"></h2>
+
+                            <!-- Edit session button -->
+                            <a class="widget stick_right" id="form_session_browser_selected_session_edit"
+                                onclick="formSessionBrowser.session.edit()" style="display: none;"><i
+                                    class="fa fa-edit"></i></a>
+                        </div>
+                    </div>
+
+                    <div id="form_session_browser_selected_session_list_players" class="list_container"></div>
+
+                    <div id="form_session_browser_session_join_password" class="content widget flex_col"
+                        style="display: none;">
+                        <small class="flex_row center_items">
+                            This session is password protected.
+                        </small>
+                        <input type="password" placeholder="enter password..." id="input_join_session_password"></input>
+                    </div>
+
+                    <div class="flex_row stretch">
+                        <a class="button green" onclick="formSessionBrowser.session.join()">Join Session</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Session creator -->
+        <div id="form_session_create" class="editor_form stretch" parent-form="form_session_browser">
+            <!-- Title -->
+            <div class="content primary" style="flex-direction: column;">
+                <h1>Session Creator</h1>
+                <p>Enter session details to create.</p>
+            </div>
+
+            <!-- Session details -->
+            <div class="flex_col content">
+                <span class="flex_row center_items">
+                    <span class="stretch">Session name</span>
+                    <input type="text" class="stick_right stretch" id="form_session_create_input_session_name"
+                        placeholder="enter session name..." maxlength="32"></input>
+                </span>
+                <span class="flex_row center_items">
+                    <span class="stretch">Maximum slots</span>
+                    <input type="number" class="stick_right stretch"
+                        id="form_session_create_input_session_maximum_slots" placeholder="blank or 0 means unlimited..."
+                        min="1" max="16" value="4"></input>
+                </span>
+                <span class="flex_row center_items">
+                    <span class="stretch">Password</span>
+                    <input type="text" class="stick_right stretch" id="form_session_create_session_password"
+                        placeholder="leave blank to unset..." maxlength="16" noascii="1"></input>
+                </span>
+            </div>
+
+            <!-- Buttons -->
+            <div class="flex_row stretch">
+                <a class="button" onclick="nui.aform.make('form_session_browser')">Cancel</a>
+                <a id="form_session_button_session_create" class="button green"
+                    onclick="formSessionCreate.create()">Create</a>
+            </div>
+        </div>
+
+        <!-- Session editor -->
+        <div id="form_session_edit" class="editor_form stretch" parent-form="form_session_browser">
+            <!-- Title-->
+            <div class="content primary" style="flex-direction: column;">
+                <h1>Configuring Session: <span id="form_session_edit_title"></span></h1>
+                <p>Tips:</p>
+                <ul>
+                    <li>Set maximum slots to 0 to have unlimited slots.</li>
+                    <li>Leave password input empty to reset the password.</li>
+                </ul>
+            </div>
+
+            <!-- Details -->
+            <div class="flex_col content">
+                <span class="flex_row center_items">
+                    <span class="stretch">Session name</span>
+                    <input type="text" class="stick_right stretch" id="form_session_edit_input_session_name"
+                        placeholder="enter session name..." maxlength="32"></input>
+                </span>
+                <span class="flex_row center_items">
+                    <span class="stretch">Maximum slots</span>
+                    <input type="number" class="stick_right stretch" id="form_session_edit_input_session_maximum_slots"
+                        placeholder="blank or 0 means unlimited..." min="1" max="16" value="4"></input>
+                </span>
+                <span class="flex_row center_items">
+                    <span class="stretch">Password</span>
+                    <input type="text" class="stick_right stretch" id="form_session_edit_input_session_password"
+                        placeholder="leave blank to unset..." maxlength="16" noascii="1"></input>
+                </span>
+            </div>
+
+            <!-- Buttons -->
+            <div class="flex_row stretch">
+                <a class="button" onclick="nui.aform.make('form_session_browser')">Cancel</i></a>
+                <a class="button red" onclick="formSessionEdit.remove()">Delete Session</a>
+                <a class="button blue" onclick="formSessionEdit.save()">Save Changes</a>
+            </div>
+        </div>
+
+        <!-- Entity creator -->
+        <div id="form_create_entity" class="editor_form stretch" editor-only="1">
+            <div class="flex_row">
+                <!-- Shortcuts -->
+                <div class="flex_col" style="width: 35%;">
+                    <span class="control" onclick="formCreateEntity.create.spawnpoint()">
+                        <i class="fa fa-map-pin"></i>Spawnpoint <span class="hotkey">M</span>
+                    </span>
+                    <span class="control" form-id="form_create_entity_preview"
+                        onclick="formCreateEntity_preview.switchClass('objects')">
+                        <i class="fa fa-cube"></i>Object
+                    </span>
+                    <span class="control" form-id="form_create_entity_preview"
+                        onclick="formCreateEntity_preview.switchClass('vehicles')">
+                        <i class="fa fa-bicycle"></i>Vehicle
+                    </span>
+                </div>
+
+                <!-- Title -->
+                <div class="flex_col stretch">
+                    <div class="content primary">
+                        <h1>Entity Creator</h1>
+                        <p>Choose an entity type from the left panel.</p>
+                    </div>
+                    <div class="content">
+                        <ul>
+                            <li>
+                                <strong>Spawnpoint</strong><br />
+                                Spawnpoints are base coordinations for players to be spawned at.
+                            </li>
+                            <li>
+                                <strong>Entity</strong><br />
+                                Entities are physical objects to place around. They can be used as decorations too.
+                            </li>
+                            <li>
+                                <strong>Vehicle</strong><br />
+                                Vehicles are not networked in editor, but they will work as regular in your servers.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Create object -->
+        <div id="form_create_entity_preview" class="editor_form" editor-only="1" parent-form="form_create_entity">
+            <div class="flex_row center_items stretch_items center_items">
+                <select class="stretch" name="form_create_entity_preview_input_class"
+                    id="form_create_entity_preview_input_class" onchange="formCreateEntity_preview.refresh()">
+                    <option value="objects">Create object</option>
+                    <option value="vehicles">Create vehicle</option>
+                </select>
+            </div>
+
+            <div class="flex_row center_items stretch_items">
+                <select class="stretch" name="form_create_entity_preview_input_category"
+                    id="form_create_entity_preview_input_category"
+                    onchange="formCreateEntity_preview.listModels(true)"></select>
+                <input class="stretch" type="text" placeholder="filter..."
+                    id="form_create_entity_preview_input_filter"></input>
+            </div>
+
+            <div class="flex_row center_items stretch_items">
+                <a class="button blue" onclick="formCreateEntity_preview.page.previous()"><i
+                        class="fa fa-arrow-left"></i></a>
+                <div class="flex_row content stretch center_items">
+                    <span id="form_create_entity_preview_label_showing_results"></span>
+                </div>
+                <a class="button blue" onclick="formCreateEntity_preview.page.next()"><i
+                        class="fa fa-arrow-right"></i></a>
+            </div>
+
+            <div id="form_create_entity_preview_list_models" class="list_container"></div>
+
+            <div class="flex_row stretch">
+                <a class="button" onclick="nui.aform.make('form_create_entity')">Back</a>
+                <a class="button green" onclick="callEditorFunction('formCreateEntity.create')">Create</a>
+            </div>
+        </div>
+
+        <!-- Current session -->
+        <div id="form_current_session" class="editor_form stretch" session-only="1">
+            <div class="flex_row stretch scroll_content">
+                <div class="flex_col stretch">
+                    <div class="content primary">
+                        <h1 id="form_current_session_title"></h1>
+                        <div class="flex_row stretch center_items">
+                            <div class="flex_row stretch center_items">
+                                <span class="flex_row center_items">
+                                    Remove world <strong id="form_current_session_label_total_remove_worlds">0</strong>
+                                </span>
+                                <span class="flex_row center_items">
+                                    Spawnpoints <strong id="form_current_session_label_total_spawnpoints">0</strong>
+                                </span>
+                                <span class="flex_row center_items">
+                                    Objects <strong id="form_current_session_label_total_objects">0</strong>
+                                </span>
+                                <span class="flex_row center_items">
+                                    Vehicles <strong id="form_current_session_label_total_vehicles">0</strong>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Entity list -->
+                    <div id="form_current_session_created_entities" class="flex_col scroll_content"
+                        style="display: none;">
+                        <div class="flex_row center_items stretch_items">
+                            <div class="flex_row content center_items stretch">
+                                <span id="form_current_session_created_entities_label_showing_results"></span>
+                            </div>
+
+                            <div class="flex_row content stretch">
+                                <input class="stretch" type="text" placeholder="filter..."
+                                    id="form_current_session_created_entities_input_filter"></input>
+                                <span class="flex_row center_items right">
+                                    <a onclick="formCurrentSession.entities.quickFilter('remove_world_');"><i
+                                            class="fa fa-eraser"></i></a>
+                                    <a onclick="formCurrentSession.entities.quickFilter('spawnpoint_');"><i
+                                            class="fa fa-map-pin"></i></a>
+                                    <a onclick="formCurrentSession.entities.quickFilter('object_');"><i
+                                            class="fa fa-cube"></i></a>
+                                    <a onclick="formCurrentSession.entities.quickFilter('vehicle_');"><i
+                                            class="fa fa-bicycle"></i></a>
+                                </span>
+                            </div>
+
+                            <div class="flex_row stretch_items">
+                                <a class="button blue" onclick="formCurrentSession.entities.page.previous()"><i
+                                        class="fa fa-arrow-left"></i></a>
+                                <a class="button blue" onclick="formCurrentSession.entities.page.next()"><i
+                                        class="fa fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                        <div id="form_current_session_list_created_entities" class="list_container"></div>
+                    </div>
+                </div>
+
+                <!-- Meta -->
+                <div id="form_current_session_info" class="widget flex_col" style="width: 40%;">
+                    <small>
+                        <div class="content flex_row">
+                            <a class="stretch" onclick="nui.aform.make('form_current_session_whitelist')">
+                                Whitelist<i class="fa fa-sticky-note"></i>
+                            </a>
+                            <a class="stretch" onclick="nui.aform.make('form_current_session_library')">
+                                Library<i class="fa fa-files-o"></i>
+                            </a>
+                            <a class="stretch" onclick="nui.aform.make('form_current_session_environment')">
+                                Environment<i class="fa fa-sun-o"></i>
+                            </a>
+                        </div>
+                    </small>
+
+                    <div class="content flex_row">
+                        <h1 id="form_current_session_info_label_current_map"></h1>
+                    </div>
+
+                    <div class="content flex_col">
+                        <label class="flex_row center_items" style="gap: 10px;"><i class="fa fa-map-o"></i> Map
+                            name</label>
+                        <input class="stretch" type="text" placeholder="enter map name"
+                            id="form_current_session_info_input_current_map_name" noascii="1" maxlength="24"></input>
+                        <hr />
+                        <label class="flex_row center_items" style="gap: 10px;"><i class="fa fa-user"></i>
+                            Author(s)</label>
+                        <input class="stretch" type="text" placeholder="enter author(s)"
+                            id="form_current_session_info_input_current_map_author" maxlength="32"></input>
+                        <hr />
+                        <label class="flex_row center_items" style="gap: 10px;"><i
+                                class="fa fa-info"></i>Description</label>
+                        <input class="stretch" type="text" placeholder="enter map description"
+                            id="form_current_session_info_input_current_map_description" maxlength="32"></input>
+                    </div>
+
+                    <div class="flex_row stretch">
+                        <a class="button green" onclick="formCurrentSession.map.save()">Save</a>
+                    </div>
+                    <div id="form_current_session_info_unload_map" class="flex_row stretch" style="display: none;">
+                        <a class="button red" onclick="formCurrentSession.map.unload()">Unload</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Whitelist -->
+        <div id="form_current_session_whitelist" class="editor_form stretch" session-only="1"
+            parent-form="form_current_session">
+            <div form_current_session_whitelist_tab="1" class="flex_col stretch">
+                <div class="flex_col stretch content">
+                    <h1 id="form_current_session_title">Access Denied.</h1>
+                    <p>You don't have permission to see whitelist for this session.</p>
+                </div>
+
+                <div class="flex_row stretch">
+                    <a class="button" onclick="nui.aform.make('form_current_session')">Back</a>
+                </div>
+            </div>
+
+            <div form_current_session_whitelist_tab="2" class="flex_row stretch scroll_content" style="display: none;">
+                <div class="flex_col stretch">
+                    <!-- Title -->
+                    <div class="content primary" style="flex-direction: column;">
+                        <h1>Session Whitelist</h1>
+                        <p>Choose who do you want to allow to join this session.</p>
+                    </div>
+
+                    <div class="flex_row content stretch center_items">
+                        <input id="form_current_session_whitelist_input_disable_whitelist" type="checkbox">Disable
+                        whitelist</input>
+                        <small>If checked, your session will be visible to everyone. Can be reverted anytime.</small>
+                    </div>
+
+                    <div class="flex_row content" style="padding-right: 20px !important;">
+                        <table width="100%">
+                            <tr>
+                                <td width="5%"><i class="fa fa-user"></i></td>
+                                <td width="35%"><strong>identifier <span class="tag">fivem</span></strong></td>
+                                <td width="35%"><strong>nickname</strong></td>
+                                <td width="25%"><strong>authorized</strong></td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div id="form_current_session_whitelist_list_players" class="list_container"></div>
+                    <div class="flex_row stretch">
+                        <a class="button" onclick="nui.aform.make('form_current_session')">Back</a>
+                        <a class="button blue" onclick="formCurrentSessionWhitelist.save()">Save Changes</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Library -->
+        <div id="form_current_session_library" class="editor_form stretch" session-only="1"
+            parent-form="form_current_session">
+            <div class="flex_row stretch scroll_content">
+                <div class="flex_col stretch">
+                    <!-- Title -->
+                    <div class="content primary" style="flex-direction: column;">
+                        <h1 id="form_current_session_library_title"></h1>
+                        <p>Maps that are made in this session.</p>
+                    </div>
+
+                    <div class="flex_row content" style="padding-right: 20px !important;">
+                        <table width="100%">
+                            <tr>
+                                <td width="5%"><i class="fa fa-circle"></i></td>
+                                <td width="20%"><strong>name</strong></td>
+                                <td width="20%"><strong>author</strong></td>
+                                <td width="25%"><strong>description</strong></td>
+                                <td width="20%"><strong>last saved</strong></td>
+                                <td width="5%"></td>
+                                <td width="5%"></td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div id="form_current_session_library_list_maps" class="list_container"></div>
+                    <div class="flex_row stretch">
+                        <a class="button" onclick="nui.aform.make('form_current_session')">Back</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Environment -->
+        <div id="form_current_session_environment" class="editor_form stretch" session-only="1"
+            parent-form="form_current_session">
+            <div class="flex_row stretch scroll_content">
+                <div class="flex_col stretch">
+                    <!-- Title -->
+                    <div class="flex_col content primary stretch">
+                        <h1>Session Environment</h1>
+                        <p>Change current weather and time settings.</p>
+                    </div>
+
+                    <div class="flex_row stretch">
+                        <div class="flex_col stretch">
+                            <span class="flex_row content">
+                                <h3>Weather Type</h3>
+                            </span>
+                            <select class="stretch" id="form_current_session_environment_input_weather" onchange="">
+                                <option value="1">Blizzard</option>
+                                <option value="2">Clear</option>
+                                <option value="3">Clearing</option>
+                                <option value="4">Clouds</option>
+                                <option value="5">Extra sunny</option>
+                                <option value="6">Foggy</option>
+                                <option value="7">Halloween</option>
+                                <option value="8">Neutral</option>
+                                <option value="9">Overcast</option>
+                                <option value="10">Rain</option>
+                                <option value="11">Smog</option>
+                                <option value="12">Snow</option>
+                                <option value="13">Snowlight</option>
+                                <option value="14">Thunder</option>
+                                <option value="15">Xmas</option>
+                            </select>
+                        </div>
+
+                        <div class="flex_col stretch">
+                            <span class="flex_row content">
+                                <h3>Time</h3>
+                            </span>
+
+                            <span class="flex_row stretch">
+                                <span class="flex_row content center_items stretch">
+                                    <span class="stretch">Hour</span>
+                                    <input type="number" class="stick_right stretch"
+                                        id="form_current_session_environment_input_hour" placeholder="12" min="0"
+                                        max="23"></input>
+                                </span>
+
+                                <span class="flex_row content center_items stretch">
+                                    <span class="stretch">Minute</span>
+                                    <input type="number" class="stick_right stretch"
+                                        id="form_current_session_environment_input_minute" placeholder="0" min="0"
+                                        max="59"></input>
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="flex_row stretch">
+                        <a class="button" onclick="nui.aform.make('form_current_session')">Back</a>
+                        <a class="button green" onclick="formCurrentSessionEnvironment.apply()">Apply</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End of content -->
+
+    <!-- Object properties -->
+    <div id="form_entity_properties" class="editor_form external" editor-only="1">
+        <!-- Title -->
+        <div class="content flex_row center center_items">
+            <strong id="form_entity_properties_title" class="flex_row center_items" style="gap: 10px;"></strong>
+        </div>
+
+        <div class="flex_row stretch">
+            <a class="button" onclick="formEntityProperties.tab(1)">Physical</a>
+            <a class="button" onclick="formEntityProperties.tab(2)">Other</a>
+            <a class="button" onclick="formEntityProperties.tab(3)">Invert</a>
+        </div>
+
+        <div form_entity_properties_tab="1" class="widget flex_col scroll_content">
+            <!-- Position -->
+            <div class="content flex_col">
+                <span class="flex_row center_items">
+                    <strong class="stretch">Coord x</strong>
+                    <input type="number" class="stick_right stretch" id="form_entity_properties_input_entity_coord_x"
+                        placeholder="0.000"></input>
+                </span>
+                <span class="flex_row center_items">
+                    <strong class="stretch">Coord y</strong>
+                    <input type="number" class="stick_right stretch" id="form_entity_properties_input_entity_coord_y"
+                        placeholder="0.000"></input>
+                </span>
+                <span class="flex_row center_items">
+                    <strong class="stretch">Coord z</strong>
+                    <input type="number" class="stick_right stretch" id="form_entity_properties_input_entity_coord_z"
+                        placeholder="0.000"></input>
+                </span>
+            </div>
+
+            <div class=" flex_row">
+                <a class="button blue stretch" onclick="formEntityProperties.placeDown()"><i
+                        class="fa fa-arrow-down"></i>Place down</a>
+            </div>
+
+            <!-- Rotation -->
+            <div class="content flex_col">
+                <span class="flex_row center_items">
+                    <strong class="stretch">Rotation pitch</strong>
+                    <input type="number" class="stick_right stretch"
+                        id="form_entity_properties_input_input_entity_pitch" placeholder="0.000"></input>
+                </span>
+                <span class="flex_row center_items">
+                    <strong class="stretch">Rotation roll</strong>
+                    <input type="number" class="stick_right stretch" id="form_entity_properties_input_input_entity_roll"
+                        placeholder="0.000"></input>
+                </span>
+                <span class="flex_row center_items">
+                    <strong class="stretch">Rotation yaw</strong>
+                    <input type="number" class="stick_right stretch" id="form_entity_properties_input_input_entity_yaw"
+                        placeholder="0.000"></input>
+                </span>
+            </div>
+
+            <!-- Rotation type -->
+            <div class="flex_col">
+                <span class="flex_row">
+                    <a class="button stretch" property-rotation-type="heading">GTA rotation</a>
+                    <a class="button stretch" property-rotation-type="world">World rotation</a>
+                </span>
+            </div>
+
+            <!-- Alpha -->
+            <div class="flex_row center_items stretch_items">
+                <strong class="content flex_row center">Alpha</strong>
+                <a class="button stretch" property-alpha="55">55</a>
+                <a class="button stretch" property-alpha="155">155</a>
+                <a class=" button stretch" property-alpha="255">255</a>
+            </div>
+
+            <!-- LOD -->
+            <div class=" flex_row center_items stretch_items">
+                <strong class="content flex_row center">LOD</strong>
+                <a class="button stretch" property-lod="0">Default</a>
+                <a class="button stretch" property-lod="30">30</a>
+                <a class="button stretch" property-lod="100">100</a>
+                <a class=" button stretch" property-lod="1000">1000</a>
+                <a class=" button stretch" property-lod="5000">5000</a>
+            </div>
+        </div>
+
+        <!-- All properties -->
+        <div form_entity_properties_tab="2" class="widget flex_col scroll_content">
+            <!-- Decals -->
+            <div class=" flex_row center_items stretch_items">
+                <strong class="content flex_row center">Decals</strong>
+                <select class="stretch" id="form_entity_properties_input_entity_decals"
+                    onchange="formEntityProperties.update('decals')">
+                    <option value="0">Pacific</option>
+                    <option value="1">Azure</option>
+                    <option value="2">Nautical</option>
+                    <option value="3">Continental</option>
+                    <option value="4">Battleship</option>
+                    <option value="5">Intrepid</option>
+                    <option value="6">Uniform</option>
+                    <option value="7">Classico</option>
+                    <option value="8">Mediterranean</option>
+                    <option value="9">Command</option>
+                    <option value="10">Mariner</option>
+                    <option value="11">Ruby</option>
+                    <option value="12">Vintage</option>
+                    <option value="13">Pristine</option>
+                    <option value="14">Merchant</option>
+                    <option value="15">Voyager</option>
+                </select>
+            </div>
+
+            <!-- Other -->
+            <div class="grid">
+                <a class="button toggle" property="locked"><i class="fa fa-lock"></i>Locked</a>
+                <a class="button toggle" property="visible"><i class="fa fa-eye"></i>Visible</a>
+                <a class="button toggle" property="frozen"><i class="fa fa-snowflake-o"></i>Freeze</a>
+                <a class="button toggle" property="lights"><i class="fa fa-flash"></i>Lights on</a>
+                <a class="button toggle" property="collisions"><i class="fa fa-snapchat-ghost"></i>Collisions</a>
+                <a class="button toggle" property="invincible"><i class="fa fa-shield"></i>Invincible</a>
+                <a class="button toggle" property="dynamic"><i class="fa fa-sun-o"></i>Dynamic</a>
+                <a class="button toggle" property="gravity"><i class="fa fa-plane"></i>Gravity</a>
+            </div>
+        </div>
+
+        <div form_entity_properties_tab="3" class="widget flex_col scroll_content">
+            <div class="flex_row stretch">
+                <a class="button" onclick="formEntityProperties.setAsOrigin()">Set as Origin Entity</a>
+            </div>
+
+            <div class="flex_row stretch">
+                <a class="button" onclick="formEntityProperties.originMove('x')">Symmetric move on X axis</a>
+            </div>
+
+            <div class="flex_row stretch">
+                <a class="button" onclick="formEntityProperties.originMove('y')">Symmetric move on Y axis</a>
+            </div>
+
+            <div class="flex_row stretch">
+                <a class="button" onclick="formEntityProperties.originMove('z')">Symmetric move on Z axis</a>
+            </div>
+
+            <div class="spacer"></div>
+            <select class="stretch" id="form_entity_properties_input_invert_type">
+                <option value="0">Standard</option>
+                <option value="1">Symmetric</option>
+            </select>
+
+            <div class="flex_row stretch">
+                <a class="button" onclick="formEntityProperties.invert('x')">Invert on X axis</a>
+            </div>
+
+            <div class="flex_row stretch">
+                <a class="button" onclick="formEntityProperties.invert('y')">Invert on Y axis</a>
+            </div>
+
+            <div class="flex_row stretch">
+                <a class="button" onclick="formEntityProperties.invert('z')">Invert on Z axis</a>
+            </div>
+        </div>
+
+        <!-- Buttons -->
+        <div class="flex_row stretch">
+            <a class="button" onclick="nui.aform.hide()">Cancel</a>
+            <a class="button green" onclick="formEntityProperties.save()">Save</a>
+        </div>
+    </div>
+    <!-- End of entity properties -->
+</body>
+
+</html>
