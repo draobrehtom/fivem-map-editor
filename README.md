@@ -60,6 +60,8 @@ exec database.cfg
 4.2 If you want editor and its dependencies to start automatically every time you start your server, add the following to your server.cfg:
 - ensure mongodb
 - ensure spawnmanager
+- ensure custom-objects
+- ensure loadscreen
 - ensure editor2
 
 5. Start your server. Check if the editor and its dependencies are working fine.
