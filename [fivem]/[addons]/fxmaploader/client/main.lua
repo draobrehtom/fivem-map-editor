@@ -182,7 +182,7 @@ AddEventHandler('onClientResourceStart', function(resourceName)
     TriggerServerEvent('clientReady')
 end)
 
-local RenderDistance = 1000 * 1000
+local RenderDistance = 5000 * 5000
 function IsCoordNear(p1, p2)
     local diff = p2 - p1
     local distance = (diff.x * diff.x) + (diff.y * diff.y)
