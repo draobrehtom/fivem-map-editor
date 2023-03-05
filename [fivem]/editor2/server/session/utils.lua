@@ -3,7 +3,7 @@ function SafeSessionConfig(config)
 
     config.name =
         type(config.name) == 'string' and string.len(config.name) > 2 and
-            config.name or 'Default editor session @ store.foxx.gg'
+            config.name or 'default foxx session'
     config.maximumSlots = type(config.maximumSlots) == 'number' and
                               config.maximumSlots >= 0 and config.maximumSlots or
                               4

@@ -13,8 +13,7 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700;900&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Mukta:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
 
     <!-- FontAwesome-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -44,20 +43,7 @@
 
 <body>
     <!-- Overlay -->
-    <div id="overlay">
-        <ul class="circles">
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-        </ul>
-    </div>
+    <div id="overlay"></div>
     <!-- End of Overlay -->
 
     <!-- Notifications -->
@@ -96,9 +82,9 @@
 
                     <!-- Create & leave buttons -->
                     <div class="flex_row stretch">
-                        <a class="button blue" onclick="nui.aform.make('form_session_create')">New Session</a>
+                        <a class="button blue" onclick="nui.aform.make('form_session_create')">Create New Session</a>
                         <a id="form_session_browser_button_session_leave" style="display: none;" class="button red"
-                            onclick="formSessionBrowser.session.leave()">Leave Session</a>
+                            onclick="formSessionBrowser.session.leave()">Leave Current Session</a>
                     </div>
                 </div>
 
@@ -110,9 +96,9 @@
                             <h2 id="form_session_browser_selected_session_title"></h2>
 
                             <!-- Edit session button -->
-                            <a class="widget stick_right" id="form_session_browser_selected_session_edit"
-                                onclick="formSessionBrowser.session.edit()" style="display: none;"><i
-                                    class="fa fa-edit"></i></a>
+                            <small id="form_session_browser_selected_session_edit" class="widget stick_right"
+                                style="display: none;"><a onclick="formSessionBrowser.session.edit()">Edit<i
+                                        class="fa fa-edit"></i></a></small>
                         </div>
                     </div>
 
@@ -146,18 +132,18 @@
                 <span class="flex_row center_items">
                     <span class="stretch">Session name</span>
                     <input type="text" class="stick_right stretch" id="form_session_create_input_session_name"
-                        placeholder="enter session name..." maxlength="32"></input>
+                        placeholder="default foxx session" maxlength="32"></input>
                 </span>
                 <span class="flex_row center_items">
                     <span class="stretch">Maximum slots</span>
                     <input type="number" class="stick_right stretch"
-                        id="form_session_create_input_session_maximum_slots" placeholder="blank or 0 means unlimited..."
+                        id="form_session_create_input_session_maximum_slots" placeholder="set to 0 for unlimited"
                         min="1" max="16" value="4"></input>
                 </span>
                 <span class="flex_row center_items">
                     <span class="stretch">Password</span>
                     <input type="text" class="stick_right stretch" id="form_session_create_session_password"
-                        placeholder="leave blank to unset..." maxlength="16" noascii="1"></input>
+                        placeholder="leave blank to reset" maxlength="16" noascii="1"></input>
                 </span>
             </div>
 
@@ -186,17 +172,17 @@
                 <span class="flex_row center_items">
                     <span class="stretch">Session name</span>
                     <input type="text" class="stick_right stretch" id="form_session_edit_input_session_name"
-                        placeholder="enter session name..." maxlength="32"></input>
+                        placeholder="default foxx session" maxlength="32"></input>
                 </span>
                 <span class="flex_row center_items">
                     <span class="stretch">Maximum slots</span>
                     <input type="number" class="stick_right stretch" id="form_session_edit_input_session_maximum_slots"
-                        placeholder="blank or 0 means unlimited..." min="1" max="16" value="4"></input>
+                        placeholder="set to 0 for unlimited" min="1" max="16" value="4"></input>
                 </span>
                 <span class="flex_row center_items">
                     <span class="stretch">Password</span>
                     <input type="text" class="stick_right stretch" id="form_session_edit_input_session_password"
-                        placeholder="leave blank to unset..." maxlength="16" noascii="1"></input>
+                        placeholder="leave blank to reset" maxlength="16" noascii="1"></input>
                 </span>
             </div>
 
@@ -295,7 +281,7 @@
                     <div class="content primary">
                         <h1 id="form_current_session_title"></h1>
                         <div class="flex_row stretch center_items">
-                            <div class="flex_row stretch center_items">
+                            <div class="flex_row stretch center_items" style="gap: 10px;">
                                 <span class="flex_row center_items">
                                     Remove world <strong id="form_current_session_label_total_remove_worlds">0</strong>
                                 </span>

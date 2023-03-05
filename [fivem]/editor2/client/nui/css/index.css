@@ -1,7 +1,7 @@
 :root {
     --theme-dark: rgba(0, 0, 0, .9);
     --theme-dark-content: rgba(15, 15, 15, .9);
-    --theme-dark-button: rgba(15, 15, 15, .9);
+    --theme-dark-button: rgba(20, 20, 20, .9);
     --foxx-main: #ff8900;
     --foxx-dark: #1a1c1b;
     --foxx-light-dark: #202324;
@@ -23,7 +23,7 @@ body {
     width: 100%;
     height: 100%;
     max-height: 100%;
-    font-family: 'Source Sans Pro', sans-serif;
+    font-family: 'Mukta', sans-serif;
     font-size: 1vw;
     color: white;
     line-height: 1.5;
@@ -52,13 +52,15 @@ body {
 #overlay {
     display: none;
     opacity: 1;
-    width: 100%;
-    height: 100%;
+    width: 110%;
+    height: 110%;
     z-index: -1;
-    top: 0;
-    left: 0;
+    top: -5%;
+    left: -5%;
     position: fixed;
-    background: url('../img/overlay.png');
+    background: url('../img/overlay.jpg');
+    background-size: contain;
+    filter: blur(10px);
 }
 
 hr {
@@ -90,7 +92,7 @@ label, h1, h2, h3, h4, h5, h6 {
 a.button {
     display: flex;
     background: var(--theme-dark-button);
-    border-radius: 100px;
+    border-radius: 0;
     color: var(--foxx-bright);
     justify-content: center;
     align-items: center;
@@ -146,7 +148,7 @@ a.button:not(.toggle):hover {
 }
 
 a.button[property-rotation-type], a.button[property-alpha], a.button[property-lod], a.button.toggle {
-    border-radius: .4rem;
+    border-radius: 0;
 }
 
 a.button.toggle[state="1"] {
@@ -198,7 +200,7 @@ a.button.toggle:hover {
 input {
     font-family: 'Roboto Flex', sans-serif;
     font-size: 1vw;
-    border-radius: .4rem;
+    border-radius: 0;
 }
 
 input[type=text],
@@ -240,7 +242,7 @@ select {
     background-color: var(--theme-dark-content);
     outline: none;
     border: none;
-    border-radius: .4rem;
+    border-radius: 0;
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
@@ -264,7 +266,7 @@ select::-ms-expand {
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
-    gap: 10px;
+    gap: 2px;
     animation: fade .3s forwards;
 }
 
@@ -273,7 +275,7 @@ span.control {
     display: flex;
     gap: 10px;
     background: var(--theme-dark);
-    border-radius: .4rem;
+    border-radius: 0;
     padding: 15px 20px;
     align-items: center;
     font-weight: 600;
@@ -294,12 +296,12 @@ span.control.active {
 
 #flex_container {
     display: none;
-    margin-top: 15px;
+    margin-top: 6px;
     margin-bottom: 10%;
     margin-left: 16%;
     margin-right: 16%;
     justify-content: flex-start;
-    gap: 10px;
+    gap: 20px;
     height: 100%;
     overflow: hidden;
 }
@@ -332,12 +334,12 @@ span.control.active {
 
 .editor_form .content {
     background: var(--theme-dark-content);
-    padding: 10px 16px;
-    border-radius: .4rem;
+    padding: 20px;
+    border-radius: 0;
 }
 
 .editor_form .content.primary {
-    background: linear-gradient(to left, rgba(255, 0, 64, .5), rgba(255, 0, 64, .9), rgba(255, 0, 64, .5));
+    background: var(--theme-dark-button);
 }
 
 .editor_form .content.title {
@@ -354,13 +356,13 @@ span.control.active {
 .flex_row {
     display: flex;
     flex-direction: row;
-    gap: 5px;
+    gap: 2px;
 }
 
 .flex_col {
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 2px;
 }
 
 .content.flex_row,
@@ -401,7 +403,7 @@ span.control.active {
 .grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 5px;
+    gap: 2px;
     height: 100%;
 }
 
@@ -409,7 +411,7 @@ span.control.active {
     display: flex;
     flex-direction: column;
     background: var(--theme-dark-content);
-    border-radius: .4rem;
+    border-radius: 0;
     row-gap: 0;
     overflow-x: hidden;
     overflow-y: scroll;
@@ -417,7 +419,7 @@ span.control.active {
 
 .list_item {
     cursor: pointer;
-    padding: 10px 16px;
+    padding: 20px;
     background-color: rgba(0, 0, 0, 0);
     transition: background-color .1s;
 }
@@ -433,7 +435,7 @@ span.control.active {
 
 .grid .list_item {
     background: var(--theme-dark-content);
-    border-radius: .4rem;
+    border-radius: 0;
 }
 
 .stretch {
@@ -462,7 +464,7 @@ img {
     margin-right: 10px;
     display: flex;
     flex-direction: column;
-    row-gap: 5px;
+    row-gap: 2px;
     z-index: 100;
 }
 
@@ -470,9 +472,9 @@ img {
     pointer-events: none;
     width: fit-content;
     background: rgba(0, 0, 0, .9);
-    border-radius: .4rem;
-    padding: 10px 16px;
-    animation: slide .3s forwards;
+    border-radius: 0;
+    padding: 20px;
+    animation: slide .5s forwards;
 }
 
 @keyframes fade {

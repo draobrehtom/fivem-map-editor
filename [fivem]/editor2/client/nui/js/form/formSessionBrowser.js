@@ -16,18 +16,18 @@ const formSessionBrowser = {
                         <div class='flex_col'>
                             <h2 class='flex_row center_items'>
                                 ` + session.name + `
-                                ` + (!session.secure || session.editable == 1 ? `<a onclick="formSessionBrowser.session.join('` + session.id + `')"><i class="fa fa-sign-in"></i></a>` : ``) + `
+                                ` + (!session.secure || session.editable == 1 ? `<small><a onclick="formSessionBrowser.session.join('` + session.id + `')"><i class="fa fa-sign-in"></i>Quick join</a></small>` : ``) + `
                                 <span style='color: ` + displayColor + `; margin-left: auto;'>
                                     <i class="` + (session.secure ? 'fa fa-lock' : 'fa fa-circle') + `"></i>
                                 </span>
                             </h2>
-                            <hr/>
                             <span class='flex_row center_items'>
-                                <span class='flex_row center_items'>
+                                <small class='flex_row center_items'>
                                     <i class='fa fa-user'></i>
-                                    <span>` + (session.ownerName ? session.ownerName : 'noone :(') + `</span>
-                                </span>
-                                <span style='margin-left: auto;'>` + session.playerCount + ` / ` + (session.maximumSlots == 0 ? '∞' : session.maximumSlots) + ` players</span>
+                                    created by ` + (session.ownerName ? session.ownerName : 'noone :(') + `, 
+                                    ` + session.playerCount + ` of ` + (session.maximumSlots == 0 ? '∞' : session.maximumSlots) + ` player(s) active
+                                </small>
+                                
                             </span>
                         </div>
                     </span>`;
