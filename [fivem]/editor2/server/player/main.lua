@@ -13,7 +13,8 @@ function SetupPlayer(playerId, wasConnected)
     playerId = tonumber(playerId)
     if Players[playerId] then return end
 
-    local identifier = CollectPlayerIdentifiers(playerId).fivemid
+    local identifiers = CollectPlayerIdentifiers(playerId)
+    local identifier = identifiers.fivemid or identifiers[next(identifiers)]
     if identifier then
         Players[playerId] = FxPlayer:New(identifier)
         PlayerFromIdentifier[identifier] = playerId

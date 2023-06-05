@@ -17,8 +17,8 @@ function CollectPlayerIdentifiers(playerId)
 
             -- IP
         elseif string.sub(identifier, 1, string.len('ip:')) == 'ip:' then
-            ip = v
-
+            ip = string.sub(identifier, string.len('ip:') + 1,
+            string.len(identifier))
             -- Discord
         elseif string.sub(identifier, 1, string.len('discord:')) == 'discord:' then
             discord = v
