@@ -386,3 +386,19 @@ AddEventHandler('session:requestExportMap', function(mapName)
     printlog('session:requestExportMap', mapName)
     session:ExportMapForPlayer(playerId, mapName)
 end)
+
+RegisterNetEvent('session:requestExportAsYmap')
+AddEventHandler('session:requestExportAsYmap', function(post)
+    local playerId = tonumber(source)
+    if type(post) ~= 'table' then return end
+
+    local session = GetPlayerSession(playerId)
+    if not session then return end
+
+    printlog('session:requestExportAsYmap',
+             'Player ' .. GetPlayerName(playerId) ..
+                 ' requested to save map in session ' .. session.id .. ' as ' ..
+                 tostring(post.name))
+
+    session:ExportCurrentMapAsYmap(post.name, post.meta)
+end)

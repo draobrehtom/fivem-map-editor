@@ -1,4 +1,17 @@
-const mongodb = require("mongodb");
+let isMongoLoaded = moduleIsAvailable('mongodb');
+
+function moduleIsAvailable (path) {
+    try {
+        require.resolve(path);
+        return true;
+    } catch (e) {
+        return false;
+    }
+}
+
+if (isMongoLoaded) {
+    const mongodb = require('mongodb');
+}
 
 function exportDocument(document) {
     if (!document) return;

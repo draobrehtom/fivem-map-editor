@@ -167,6 +167,26 @@ const formCurrentSession = {
         },
 
         unload: function () { callEditorFunction('formCurrentSession.map.unload'); },
+
+        exportAsYmap: function () {
+            const name = $('#form_current_session_info_input_current_map_name').val();
+            if (name.length < 4) {
+                callEditorFunction('editor:addNotification', {
+                    title: 'Map Save',
+                    message: 'Map name must be atleast 4 characters long.',
+                    icon: 'circle'
+                });
+                return;
+            }
+
+            callEditorFunction('formCurrentSession.map.exportAsYmap', {
+                name: name,
+                meta: {
+                    author: $('#form_current_session_info_input_current_map_author').val(),
+                    description: $('#form_current_session_info_input_current_map_description').val()
+                }
+            });
+        },
     }
 }
 

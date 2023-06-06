@@ -76,3 +76,7 @@ end)
 RegisterNUICallback('formCurrentSession.map.unload', function()
     TriggerServerEvent('session:requestUnloadMap')
 end)
+
+RegisterNUICallback('formCurrentSession.map.exportAsYmap', function(post)
+    TriggerServerEvent('session:requestExportAsYmap', post)
+end)

@@ -702,3 +702,150 @@ function Session:ExportMapForPlayer(playerId, mapName)
         end)
     end
 end
+
+-- ConvertDatabaseToYmap
+local function toQuaternion(pitch, roll, yaw)
+	local rot = -vector3(roll, pitch, yaw)
+
+	local p = math.rad(rot.y)
+	local r = math.rad(rot.z)
+	local y = math.rad(rot.x)
+
+	local cy = math.cos(y * 0.5)
+	local sy = math.sin(y * 0.5)
+	local cr = math.cos(r * 0.5)
+	local sr = math.sin(r * 0.5)
+	local cp = math.cos(p * 0.5)
+	local sp = math.sin(p * 0.5)
+
+	local q = {}
+
+	q.x = cy * sp * cr + sy * cp * sr
+	q.y = sy * cp * cr - cy * sp * sr
+	q.z = cy * cp * sr - sy * sp * cr
+	q.w = cy * cp * cr + sy * sp * sr
+
+	return q
+end
+
+-- https://github.com/kibook/spooner/blob/4e2d1002103a97d95d470096f5917fa143026011/client.lua#LL1818C1-L1818C1
+function Session:CurrentMapContentInYmap()
+    local minX, maxX, minY, maxY, minZ, maxZ
+	local entitiesXml = '\t<entities>\n'
+
+    --[[
+        @return integer
+    ]]
+    local function getEntityTypeFromEditorClass(class)
+        class = tostring(class)
+        if class == "2" then    
+            return 3 -- object
+        end
+    end
+
+    for _, entity in pairs(self.entities) do
+        local entry = {}
+        for key, value in pairs(entity) do
+            if not KEYS_TO_NOT_EXPORT[key] then 
+                entry[key] = value 
+            end
+        end
+        
+        local properties = {
+            name = entry.name,
+            x = entry.coords.x,
+            y = entry.coords.y,
+            z = entry.coords.z,
+            pitch = entry.rotation.x,
+            roll = entry.rotation.y,
+            yaw = entry.rotation.z,
+            type = getEntityTypeFromEditorClass(entry.class),
+        }
+
+		if properties.type == 3 then
+			local q = toQuaternion(properties.pitch, properties.roll, properties.yaw)
+
+			if not minX or properties.x < minX then
+				minX = properties.x
+			end
+			if not maxX or properties.x > maxX then
+				maxX = properties.x
+			end
+			if not minY or properties.y < minY then
+				minY = properties.y
+			end
+			if not maxY or properties.y > maxY then
+				maxY = properties.y
+			end
+			if not minZ or properties.z < minZ then
+				minZ = properties.z
+			end
+			if not maxZ or properties.z > maxZ then
+				maxZ = properties.z
+			end
+
+			local flags = 1572865
+
+			if properties.isFrozen then
+				flags = flags + 32
+			end
+
+			entitiesXml = entitiesXml .. '\t\t<Item type="CEntityDef">\n'
+			entitiesXml = entitiesXml .. '\t\t\t<archetypeName>' .. properties.name .. '</archetypeName>\n'
+			entitiesXml = entitiesXml .. '\t\t\t<flags value="' .. flags .. '"/>\n'
+			entitiesXml = entitiesXml .. string.format('\t\t\t<position x="%f" y="%f" z="%f"/>\n', properties.x, properties.y, properties.z)
+			entitiesXml = entitiesXml .. string.format('\t\t\t<rotation w="%f" x="%f" y="%f" z="%f"/>\n', q.w, q.x, q.y, q.z)
+			entitiesXml = entitiesXml .. '\t\t\t<scaleXY value="1"/>\n'
+			entitiesXml = entitiesXml .. '\t\t\t<scaleZ value="1"/>\n'
+			entitiesXml = entitiesXml .. '\t\t\t<parentIndex value="-1"/>\n'
+			entitiesXml = entitiesXml .. '\t\t\t<lodDist value="500"/>\n'
+			entitiesXml = entitiesXml .. '\t\t\t<childLodDist value="500"/>\n'
+			entitiesXml = entitiesXml .. '\t\t\t<lodLevel>LODTYPES_DEPTH_HD</lodLevel>\n'
+			entitiesXml = entitiesXml .. '\t\t\t<numChildren value="0"/>\n'
+			entitiesXml = entitiesXml .. '\t\t\t<ambientOcclusionMultiplier value="255"/>\n'
+			entitiesXml = entitiesXml .. '\t\t\t<artificialAmbientOcclusion value="255"/>\n'
+			entitiesXml = entitiesXml .. '\t\t</Item>\n'
+		end
+	end
+
+	entitiesXml = entitiesXml .. '\t</entities>\n'
+
+	local xml = '<?xml version="1.0"?>\n<CMapData>\n\t<flags value="2"/>\n\t<contentFlags value="65"/>\n'
+
+	if minX and minY and minZ and maxX and maxY and maxZ then
+		xml = xml .. string.format('\t<streamingExtentsMin x="%f" y="%f" z="%f"/>\n', minX - 400, minY - 400, minZ - 400)
+		xml = xml .. string.format('\t<streamingExtentsMax x="%f" y="%f" z="%f"/>\n', maxX + 400, maxY + 400, maxZ + 400)
+		xml = xml .. string.format('\t<entitiesExtentsMin x="%f" y="%f" z="%f"/>\n', minX, minY, minZ)
+		xml = xml .. string.format('\t<entitiesExtentsMax x="%f" y="%f" z="%f"/>\n', maxX, maxY, maxZ)
+
+		xml = xml .. entitiesXml
+	end
+
+	xml = xml .. '</CMapData>'
+
+	return xml
+end
+
+function Session:ExportCurrentMapAsYmap(name, meta, forced)
+    local currentMap = self:CurrentMap()
+    local name = name or (currentMap and currentMap.name) or nil
+    local meta = type(meta) == 'table' and meta or
+                     (currentMap and currentMap.meta) or {}
+
+    if type(name) ~= 'string' or string.len(name) < 4 then
+        printlog('Session:SaveCurrentMap',
+                 'Action aborted. Name is either invalid or too short.')
+        return false
+    end
+
+    meta.author = meta.author or ''
+    meta.description = meta.description or ''
+
+    local contentXML = self:CurrentMapContentInYmap()
+
+    SaveResourceFile(GetCurrentResourceName(), 'exported-ymaps/' .. name .. '.ymap.xml', contentXML)
+
+    self:AddChatMessage('Exported current map as: ' .. name .. '.ymap.xml (folder: ' .. GetCurrentResourceName() .. '/exported-ymaps/)', 'success')
+
+    return true
+end
