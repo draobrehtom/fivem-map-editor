@@ -57,6 +57,10 @@ function SendSessionsToPlayer(playerId)
     }, function(success, result)
         if not success then return end
 
+        result = {
+            session1 = {id = 1, ownerId = "192.168.1.15", whitelist = 0, whitelistDisabled = true}
+        }
+
         local whitelistedSessionsForPlayer = {}
         for _, session in pairs(result) do
             local authorized = false

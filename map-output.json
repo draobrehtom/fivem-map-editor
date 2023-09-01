@@ -1,0 +1,380 @@
+[
+    {
+        "invincible": 0,
+        "decals": 0,
+        "class": 2,
+        "lights": 0,
+        "coords": {
+            "x": 207.27151489257813,
+            "y": 169.36566162109376,
+            "z": 104.39700317382813
+        },
+        "gravity": 0,
+        "frozen": 1,
+        "collisions": 1,
+        "locked": 0,
+        "visible": 1,
+        "lod": 5000,
+        "alpha": 255,
+        "rotation": {
+            "x": 0.0,
+            "y": -0.0,
+            "z": -110.49412536621094
+        },
+        "name": "prop_const_fence01b_cr",
+        "dynamic": 0,
+        "model": "prop_const_fence01b_cr"
+    },
+    {
+        "invincible": 0,
+        "decals": 0,
+        "gravity": 0,
+        "lights": 0,
+        "coords": {
+            "x": 204.57228088378907,
+            "y": 161.61598205566407,
+            "z": 104.39700317382813
+        },
+        "class": 2,
+        "dynamic": 0,
+        "collisions": 1,
+        "locked": 0,
+        "visible": 1,
+        "lod": 5000,
+        "alpha": 255,
+        "rotation": {
+            "x": 0.0,
+            "y": -0.0,
+            "z": -110.49400329589844
+        },
+        "frozen": 1,
+        "name": "prop_const_fence01b_cr",
+        "model": "prop_const_fence01b_cr"
+    },
+    {
+        "invincible": 0,
+        "decals": 0,
+        "gravity": 0,
+        "lights": 0,
+        "coords": {
+            "x": 195.15499877929688,
+            "y": 172.4739990234375,
+            "z": 104.59100341796875
+        },
+        "class": 2,
+        "dynamic": 0,
+        "collisions": 1,
+        "locked": 0,
+        "visible": 1,
+        "lod": 0,
+        "alpha": 255,
+        "rotation": {
+            "x": 0.0,
+            "y": -0.0,
+            "z": 162.48699951171876
+        },
+        "frozen": 1,
+        "name": "xm_prop_base_fence_01",
+        "model": "xm_prop_base_fence_01"
+    },
+    {
+        "invincible": 0,
+        "decals": 0,
+        "gravity": 0,
+        "lights": 0,
+        "coords": {
+            "x": 218.9794464111328,
+            "y": 187.2089385986328,
+            "z": 104.58940887451172
+        },
+        "class": 2,
+        "dynamic": 0,
+        "collisions": 1,
+        "locked": 0,
+        "visible": 1,
+        "lod": 0,
+        "alpha": 255,
+        "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 65.72106170654297
+        },
+        "frozen": 1,
+        "name": "xm_prop_base_fence_01",
+        "model": "xm_prop_base_fence_01"
+    },
+    {
+        "invincible": 0,
+        "decals": 0,
+        "gravity": 0,
+        "lights": 0,
+        "coords": {
+            "x": 200.15699768066407,
+            "y": 170.91099548339845,
+            "z": 104.55400085449219
+        },
+        "class": 2,
+        "dynamic": 0,
+        "collisions": 1,
+        "locked": 0,
+        "visible": 1,
+        "lod": 0,
+        "alpha": 255,
+        "rotation": {
+            "x": 0.0,
+            "y": -0.0,
+            "z": 162.48699951171876
+        },
+        "frozen": 1,
+        "name": "xm_prop_base_fence_01",
+        "model": "xm_prop_base_fence_01"
+    },
+    {
+        "invincible": 0,
+        "decals": 0,
+        "gravity": 0,
+        "lights": 0,
+        "coords": {
+            "x": 205.89649963378907,
+            "y": 165.6091766357422,
+            "z": 104.39700317382813
+        },
+        "class": 2,
+        "dynamic": 0,
+        "collisions": 1,
+        "locked": 0,
+        "visible": 1,
+        "lod": 5000,
+        "alpha": 255,
+        "rotation": {
+            "x": 0.0,
+            "y": -0.0,
+            "z": -110.49400329589844
+        },
+        "frozen": 1,
+        "name": "prop_const_fence01b_cr",
+        "model": "prop_const_fence01b_cr"
+    },
+    {
+        "invincible": 0,
+        "decals": 0,
+        "gravity": 0,
+        "lights": 0,
+        "coords": {
+            "x": 217.22000122070313,
+            "y": 182.7779998779297,
+            "z": 104.5999984741211
+        },
+        "class": 2,
+        "dynamic": 0,
+        "collisions": 1,
+        "locked": 0,
+        "visible": 1,
+        "lod": 0,
+        "alpha": 255,
+        "rotation": {
+            "x": 0.0,
+            "y": -0.99999994039535,
+            "z": 73.46599578857422
+        },
+        "frozen": 1,
+        "name": "xm_prop_base_fence_01",
+        "model": "xm_prop_base_fence_01"
+    },
+    {
+        "invincible": 0,
+        "decals": 0,
+        "class": 2,
+        "lights": 0,
+        "coords": {
+            "x": 190.60899353027345,
+            "y": 174.4340057373047,
+            "z": 104.49099731445313
+        },
+        "gravity": 0,
+        "frozen": 1,
+        "collisions": 1,
+        "locked": 0,
+        "visible": 1,
+        "lod": 0,
+        "alpha": 255,
+        "rotation": {
+            "x": 0.0,
+            "y": -0.0,
+            "z": 150.4399871826172
+        },
+        "name": "xm_prop_base_fence_01",
+        "dynamic": 0,
+        "model": "xm_prop_base_fence_01"
+    },
+    {
+        "invincible": 0,
+        "lights": 0,
+        "coords": {
+            "x": 192.39976501464845,
+            "y": 189.32293701171876,
+            "z": 108.17634582519531
+        },
+        "frozen": 1,
+        "collisions": 1,
+        "alpha": 255,
+        "decals": 0,
+        "class": 1,
+        "dynamic": 0,
+        "locked": 0,
+        "visible": 1,
+        "lod": 5000,
+        "gravity": 0,
+        "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 11.45126342773437
+        },
+        "name": "prop_mp_placement",
+        "indicatorColor": [
+            236,
+            213,
+            16
+        ],
+        "model": "prop_mp_placement"
+    },
+    {
+        "invincible": 0,
+        "decals": 0,
+        "gravity": 0,
+        "lights": 0,
+        "coords": {
+            "x": 222.5603790283203,
+            "y": 196.43333435058595,
+            "z": 104.57183837890625
+        },
+        "class": 2,
+        "dynamic": 0,
+        "collisions": 1,
+        "locked": 0,
+        "visible": 1,
+        "lod": 0,
+        "alpha": 255,
+        "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 69.21110534667969
+        },
+        "frozen": 1,
+        "name": "xm_prop_base_fence_01",
+        "model": "xm_prop_base_fence_01"
+    },
+    {
+        "invincible": 0,
+        "lights": 0,
+        "coords": {
+            "x": 188.16400146484376,
+            "y": 183.2989959716797,
+            "z": 104.39399719238281
+        },
+        "frozen": 1,
+        "collisions": 1,
+        "alpha": 255,
+        "decals": 0,
+        "class": 1,
+        "dynamic": 0,
+        "locked": 0,
+        "visible": 1,
+        "lod": 5000,
+        "gravity": 0,
+        "rotation": {
+            "x": 0.0,
+            "y": -0.0,
+            "z": 0.0
+        },
+        "name": "prop_mp_placement",
+        "indicatorColor": [
+            87,
+            165,
+            227
+        ],
+        "model": "prop_mp_placement"
+    },
+    {
+        "invincible": 0,
+        "decals": 0,
+        "gravity": 0,
+        "lights": 0,
+        "coords": {
+            "x": 220.99822998046876,
+            "y": 191.70584106445313,
+            "z": 104.57344055175781
+        },
+        "class": 2,
+        "dynamic": 0,
+        "collisions": 1,
+        "locked": 0,
+        "visible": 1,
+        "lod": 0,
+        "alpha": 255,
+        "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 75.20027923583985
+        },
+        "frozen": 1,
+        "name": "xm_prop_base_fence_01",
+        "model": "xm_prop_base_fence_01"
+    },
+    {
+        "invincible": 0,
+        "lights": 0,
+        "coords": {
+            "x": 205.51800537109376,
+            "y": 187.35800170898438,
+            "z": 105.39700317382813
+        },
+        "dynamic": 1,
+        "collisions": 1,
+        "colors": [
+            6,
+            0
+        ],
+        "alpha": 255,
+        "decals": 11,
+        "gravity": 0,
+        "locked": 0,
+        "visible": 1,
+        "lod": 5000,
+        "class": 3,
+        "name": "Blista",
+        "frozen": 1,
+        "rotation": {
+            "x": 179.99998474121095,
+            "y": -0.0,
+            "z": -100.01399993896485
+        },
+        "model": "Blista"
+    },
+    {
+        "invincible": 0,
+        "decals": 0,
+        "gravity": 0,
+        "lights": 0,
+        "coords": {
+            "x": 215.19146728515626,
+            "y": 178.23257446289063,
+            "z": 104.42150115966797
+        },
+        "class": 2,
+        "dynamic": 0,
+        "collisions": 1,
+        "locked": 0,
+        "visible": 1,
+        "lod": 0,
+        "alpha": 255,
+        "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 65.18782806396485
+        },
+        "frozen": 1,
+        "name": "xm_prop_base_fence_01",
+        "model": "xm_prop_base_fence_01"
+    }
+]
